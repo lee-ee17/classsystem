@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>這堂課要去嗎</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/intro.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <style>
+        
+
+        body {
+            padding-top: 76px;
+            /* 為固定頂部導航欄留出更多空間 */
+            font-family: 'Noto Sans TC', sans-serif;
+            /* 使用適合中文的字體 */
+            background-color: #f8f9fa;
+            /* 輕微的背景顏色 */
+            
+        }
+        
+
+        footer {
+            background-color: #578cd2;
+            /* 頁尾背景顏色 */
+            padding: 20px 0;
+            /* 頁尾上下間距 */
+            text-align: center;
+            /* 頁尾文字置中 */
+            color: white;
+            /* 文字顏色設為白色，提高可讀性 */
+            
+        }
+
+        .navbar {
+            background-color: #578cd2;
+            /* 導航欄背景顏色 */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* 添加陰影效果 */
+            padding: 8px 0;
+            /* 上下間距調整 */
+        }
+
+        .navbar-brand img {
+            height: 80px;
+            /* 設定 logo 高度 */
+            margin-right: 100px;
+            /* logo 右側間距 */
+            transition: transform 0.3s ease;
+            /* 添加過渡效果 */
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.05);
+            /* Logo懸停時輕微放大 */
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 18px;
+            /* 導航項目字體大小 */
+            margin-right: 10px;
+            /* 導航項目右側間距 */
+            color: white !important;
+            /* 導航項目文字顏色 */
+            padding: 8px 15px;
+            /* 增加可點擊區域 */
+            border-radius: 20px;
+            /* 圓角效果 */
+            transition: all 0.3s ease;
+            /* 過渡效果 */
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            /* 懸停時背景微亮 */
+            transform: translateY(-2px);
+            /* 輕微上浮效果 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* 添加懸停時的陰影 */
+        }
+
+        .btn-outline-primary {
+            color: white;
+            border-color: white;
+            transition: all 0.3s ease;
+        }
+
+
+        .btn-outline-primary:hover {
+            background-color: white;
+            color: #578cd2;
+            border-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 添加頁面內容的動畫效果 */
+        .content h1,
+        .content p {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #card2 {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #e9f0f9;
+        }
+
+
+        #card2 .card-body {
+            overflow-y: auto;
+        }
+
+        #card2 .card-title {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        #card2 .card-text {
+            font-size: 17px;
+            line-height: 1.4;
+            max-height: 4em;
+            overflow: hidden;
+            -webkit-line-clamp: 2;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            font-weight: normal;
+        }
+
+        #card2:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        #card1 {
+            border-radius: 15px;
+            margin-top: 20px;
+            background-color: #e9f0f9;
+
+        }
+
+        #card1 .card-title {
+            background-color: #578cd2 !important;
+            color: white !important;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        #card1 .card-body {
+            background-color: #e9f0f9;
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 0px;
+            border-radius: 15px;
+            padding-bottom: 40px;
+
+        }
+
+        #card1 .card-text {
+            font-size: 16px;
+            /* 描述文字字體大小 */
+            margin-bottom: 40px;
+            /* 下方間距 */
+
+        }
+
+        #card1:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            /* 增加陰影 */
+        }
+
+        .btn-thrid:hover {
+            color: #578cd2;
+            transform: font-size(1.05);
+        }
+
+        .btn.disabled {
+            border: white;
+        }
+
+        .btn-thrid.active {
+            color: black;
+            border: white;
+        }
+
+        h3 {
+            color:#578cd2;
+        }
+        .list-group-item{
+            font-size: large;
+        }
+        .commentcoun{
+            font-size: 1rem;
+        }
+        
+        
+    </style>
+</head>
+
+
+<body >
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index_html' %}">
+                {% load static %}
+                <img src="{% static 'img/class.png' %}" alt="課程圖" class="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'index_html' %}">
+                            <i class="fas fa-home me-1"></i>首頁
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'intro_html' %}">
+                            <i class="fas fa-search me-1"></i>課程查詢
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="courses.html">
+                            <i class="fas fa-question-circle me-1"></i>翹嗎?
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">
+                            <i class="fas fa-university me-1"></i>中大選課
+                        </a>
+                    </li>
+                </ul>
+                <!-- 右上角登入按鈕 -->
+                {% if user.is_authenticated %}
+                <div class="d-flex">
+                    <button class="btn btn-outline-primary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                        <i class="fas fa-user me-1"></i>{{ user.username }}
+                    </button>
+                    
+                </div>
+                {% else %}
+                <div class="d-flex">
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-sign-in-alt me-1"></i>登入
+                    </a>
+                </div>
+                {% endif %}
+                
+                
+            </div>
+
+        </div>
+
+    </nav>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title fw-bold " id="offcanvasNavbarLabel">您好，{{ user.username }}</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body px-4 py-3 flex-column">
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-user me-2"></i>我的帳號</a>
+                <a href="{% url 'my_favorites' %}" class="list-group-item list-group-item-action"><i class="fas fa-heart me-2"></i>我的收藏</a>
+                <a href="#" class="list-group-item list-group-item-action"><i class="fas fa-history me-2"></i>搜尋紀錄</a>
+                <div class="mt-auto">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="list-group-item list-group-item-action text-start">
+                        <i class="fas fa-sign-out-alt me-2"></i>登出
+                    </button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="container my-5">
+        <div class="card" id="card1">
+
+
+            <div class="card-title">
+                課程查詢
+            </div>
+            <div class="card-body">
+                <section class="row">
+                    <div class="col-md-6 mb-0">
+                        <input type="text" class="form-control" id="search-input" placeholder="今天要上什麼課？">
+                    </div>
+                    <div class="col-md-2 mb-0">
+                        <button class="btn  btn-block btn-secondary" id="search-button">搜尋</button>
+                    </div>
+
+                </section>
+
+
+                <section class="row">
+                    <div class="col-md-2  mt-1">
+                        <label for="category" class="form-label mb-1">課程類別📖</label>
+                        <select id="category" class="form-select">
+                            <option value="不限">不限</option>
+                            <option value="必修課">必修課</option>
+                            <option value="選修課">選修課</option>
+                            <option value="通識課">通識課</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-2  mt-1">
+                        <label for="sweet" class="form-label mb-1">甜度🍬</label>
+                        <select id="sweet" class="form-select">
+                            <option value="不限">不限</option>
+                            <option value="0-2">0-2</option>
+                            <option value="2-4">2-4</option>
+                            <option value="4-5">4-5</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-2 mt-1">
+                        <label for="cold" class="form-label mb-1 ">涼度🧊</label>
+                        <select id="cold" class="form-select">
+                            <option value="不限">不限</option>
+                            <option value="0-2">0-2</option>
+                            <option value="2-4">2-4</option>
+                            <option value="4-5">4-5</option>
+                        </select>
+                </section>
+            </div>
+        </div>
+
+        </div>
+        <section id="search-results" class="row my-4">
+
+        </section>
+        <section class="row my-4">
+            
+            <h2>課程總覽</h2>
+            {% for course in pages %}
+            <div class="col-md-4 mt-2 mb-3">
+                <div class="card" id="card2">
+                    <div class="card-body">
+                       <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h4 class="card-title mb-0">{{ course.name }}</h4>
+                            {% if user.is_authenticated %}
+                            <div class="favorite-toggle d-flex align-items-center"
+                            data-course-id="{{ course.id }}"
+                            data-favorited="{% if course.id in favorite_ids %}true{% else %}false{% endif %}">
+
+                                <i class="{% if course.id in favorite_ids %}fas text-danger{% else %}far text-secondary{% endif %} fa-heart fa-lg"></i>
+                                <span class="ms-1 {% if course.id in favorite_ids %}text-danger{% else %}text-secondary{% endif %}">
+                                {{ course.favorite_count }}
+                                </span>
+                            </div>
+                            {% else %}
+                            <div class="position-absolute top-0 end-0 p-2 d-flex align-items-center mt-2">
+                                <i class="fas fa-heart fa-lg text-secondary me-1"></i>
+                                <span class="text-secondary">{{ course.favorite_count }}</span>
+                            </div>
+                            
+                            {% endif %}
+                        </div>
+                        
+                        <div class="course-rating">
+                            <span class="text-black">🍬甜度：</span>
+                    {% with rating_value=course.get_sweet_rating %}
+                        {% with integer_part=rating_value|stringformat:'d'|add:'0' %}
+                            {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= integer_part %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% elif forloop.counter == integer_part|add:'1' and rating_value|stringformat:'.1f'|slice:'-2:'|cut:'.' == '5' %}
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                {% else %}
+                                    <i class="far fa-star text-warning"></i>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                            <span class="ms-1 text-warning">{{ rating_value }}</span>
+                    {% endwith %}
+                            
+                        </div>
+                        <div class="course-rating">
+
+                            <span class="text-black">🧊涼度：</span>
+                            {% with rating_value=course.get_cold_rating %}
+                                {% with integer_part=rating_value|stringformat:'d'|add:'0' %}
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= integer_part %}
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% elif forloop.counter == integer_part|add:'1' and rating_value|stringformat:'.1f'|slice:'-2:'|cut:'.' == '5' %}
+                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                        {% else %}
+                                            <i class="far fa-star text-warning"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+                                <span class="ms-1 text-warning">{{ rating_value }}</span>
+                            {% endwith %}
+                           
+                            
+                        </div>
+
+                        <p class="card-text mb-1">教師：{{ course.instructor }}</p>
+                        <p class="card-text mb-1">學分：{{ course.credits }}</p>
+                        <p class="card-text mb-1">類別：{{ course.category }}</p>
+                        <p class="card-text">介紹：{{ course.description|slice:":100" }}...</p>
+                
+                        <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">查看課程</a>
+                        <p class=" position-absolute bottom-0 end-0 mb-2 me-2 " id="comment">
+                            <i class="fa-solid fa-comment commentcount"></i> {{ course.comment_count }}
+                        </p>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>目前沒有課程可以顯示。</p>
+
+            {% endfor %}
+
+        </section>
+        <nav>
+            <ul class="pagination justify-content-center">
+                {% if pages.has_previous %}
+                <li>
+                    <a class="join-item btn btn-thrid active" href="?page={{ pages.previous_page_number }}">
+                        &laquo 上一頁
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a class="join-item btn  disabled">
+                        &laquo 上一頁
+                    </a>
+                </li>
+
+                {% endif %}
+
+                <li class="join-item btn ">
+                    第{{pages.number}}頁
+                </li>
+
+                {% if pages.has_next %}
+                <li>
+                    <a class="join-item btn btn-thrid active" href="?page={{pages.next_page_number}}">
+                        下一頁 &raquo
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a class="join-item btn disabled">
+                        下一頁 &raquo
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 拿 CSRF token（Django 安全機制）
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrfToken = getCookie('csrftoken');
+    
+        // 點擊愛心收藏
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.favorite-toggle')) {
+                const toggleDiv = e.target.closest('.favorite-toggle');
+                const courseId = toggleDiv.dataset.courseId;
+                const isFavorited = toggleDiv.dataset.favorited === "true";
+    
+                fetch(`/courses/favorite/${courseId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // 更新畫面：icon 和數字切換
+                        const icon = toggleDiv.querySelector('i');
+                        const countSpan = toggleDiv.querySelector('span');
+                        let count = parseInt(countSpan.textContent);
+    
+                        if (isFavorited) {
+                            icon.classList.remove('fas', 'text-danger');
+                            icon.classList.add('far', 'text-secondary');
+                            countSpan.classList.remove('text-danger');
+                            countSpan.classList.add('text-secondary');
+                            toggleDiv.dataset.favorited = "false";
+                            count -= 1;
+                        } else {
+                            icon.classList.remove('far', 'text-secondary');
+                            icon.classList.add('fas', 'text-danger');
+                            countSpan.classList.remove('text-secondary');
+                            countSpan.classList.add('text-danger');
+                            toggleDiv.dataset.favorited = "true";
+                            count += 1;
+                        }
+    
+                        countSpan.textContent = count;
+                    } else {
+                        console.error('收藏失敗');
+                    }
+                });
+            }
+        });
+    </script>
+    
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('search-button').addEventListener('click', function () {
+                var searchTerm = document.getElementById('search-input').value.trim();
+                var category = document.getElementById('category').value;
+                var sweet = document.getElementById('sweet').value;
+                var cold = document.getElementById('cold').value;
+    
+                if (searchTerm === '') {
+                    alert('請輸入搜尋條件');
+                    return;
+                }
+    
+                fetch(`/courses/search/?search=${searchTerm}&category=${category}&sweet=${sweet}&cold=${cold}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        var resultContainer = document.getElementById('search-results');
+                        resultContainer.innerHTML = '<h2>搜尋結果</h2>';
+    
+                        if (data.length > 0) {
+                            data.forEach(function (course) {
+                                var courseDiv = document.createElement('div');
+                                courseDiv.classList.add('col-md-4', 'mt-1', 'mb-4');
+    
+                                function generateStarRating(rating) {
+                                    if (rating === undefined || rating === null || isNaN(rating) || rating === "NaN") {
+                                        return '<span class="text-muted">尚未評分</span>';
+                                    }
+    
+                                    let starsHtml = '';
+                                    const numericRating = parseFloat(rating);
+                                    const fullStars = Math.floor(numericRating);
+                                    const hasHalfStar = (numericRating - fullStars) >= 0.5;
+                                    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+                                    for (let i = 0; i < fullStars; i++) {
+                                        starsHtml += '<i class="fas fa-star text-warning"></i>';
+                                    }
+                                    if (hasHalfStar) {
+                                        starsHtml += '<i class="fas fa-star-half-alt text-warning"></i>';
+                                    }
+                                    for (let i = 0; i < emptyStars; i++) {
+                                        starsHtml += '<i class="far fa-star text-warning"></i>';
+                                    }
+    
+                                    return starsHtml + `<span class="ms-1 text-warning">${numericRating.toFixed(1)}</span>`;
+
+                                }
+    
+                                courseDiv.innerHTML = `
+                                    <div class="card" id="card2">
+                                        
+                                        <div class="position-absolute top-0 end-0 p-2 d-flex align-items-center favorite-toggle mt-2"
+                                            data-course-id="${course.id}" data-favorited="${course.is_favorited}">
+                                            <i class="${course.is_favorited ? 'fas' : 'far'} fa-heart fa-lg ${course.is_favorited ? 'text-danger' : 'text-secondary'}"></i>
+                                            <span class="ms-1 ${course.is_favorited ? 'text-danger' : 'text-secondary'}">${course.favorite_count}</span>
+                                        </div>
+                                        
+                                        <div class="card-body">
+                                            <h4 class="card-title">${course.name}</h4>
+                                                    
+                                            <div class="course-rating">
+                                                <span class="text-black">🍬甜度：</span>
+                                                ${generateStarRating(course.sweet)}
+                                            </div>
+                                            <div class="course-rating">
+                                                <span class="text-black">🧊涼度：</span>
+                                                ${generateStarRating(course.cold)}
+                                            </div>
+                                            <p class="card-text mb-1">老師：${course.instructor}</p>
+                                            <p class="card-text mb-1">學分：${course.credits}</p>
+                                            <p class="card-text mb-1">類別：${course.category}</p>
+                                            <p class="card-text">介紹：${course.description.slice(0, 100)}...</p>
+                                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                                <a href="/courses/${course.id}/" class="btn btn-secondary">查看課程</a>
+                                                <div class="d-flex align-items-center">
+                                                    
+                                                    <i class="fa-solid fa-comment ms-3 text-muted"></i>
+                                                    <span class="ms-1 text-muted">${course.comment_count}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                resultContainer.appendChild(courseDiv);
+                            });
+                        } else {
+                            resultContainer.innerHTML += '<h3>找不到相關課程</h3>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('搜尋過程中出現錯誤:', error);
+                    });
+            });
+        });
+    </script>
+    
+
+
+
+
+</body>
+<footer>
+    <div class="container">
+        <p>&copy; 2025 這堂課要去嗎？版權所有. | <a href="#" class="text-white">隱私政策</a> | <a href="#" class="text-white">使用條款</a>
+        </p>
+    </div>
+</footer>
+
+</html>

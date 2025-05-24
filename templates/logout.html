@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>logout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        #card2 {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #e9f0f9;
+            text-align: center;
+        }
+
+
+        #card2 .card-body {
+            overflow-y: auto;
+        }
+
+        #card2 .card-title {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        #card2 .card-text {
+            font-size: 17px;
+            line-height: 1.4;
+            max-height: 4em;
+            overflow: hidden;
+            -webkit-line-clamp: 2;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            font-weight: normal;
+        }
+
+        .btn-secondary {
+            background-color: #578cd2;
+            color: white !important;
+            border-color: white !important;
+            transition: all 0.3s ease !important;
+            margin-bottom: 10px;
+        }
+
+        .btn-secondary:hover {
+            background-color: white !important;
+            color: #578cd2 !important;
+            border-color: #578cd2 !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+        }
+       
+       
+        
+        
+    </style>
+
+</head>
+
+
+<body>
+    <div class="container col-md-8 justify-content-center mt-5">
+        <div class="card p-5 m-5 rounded-4 shadow text-center d-flex justify-content-center align-items-center" style="height: 300px;" id="card2">
+            <div class="card-body">
+                <h2 class="mb-4">您已登出</h2>
+                <a class="btn btn-secondary" href="{% url 'index_html' %}">
+                回到首頁
+                </a>
+                <br> <br>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

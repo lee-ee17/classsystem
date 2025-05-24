@@ -1,0 +1,63 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#wheel {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 5px solid #333;
+    overflow: hidden;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.spinner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 50%;
+}
+
+.section {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    text-align: center;
+    line-height: 2;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #8bdeff;
+    color: #fff;
+    transform-origin: 100% 100%;
+    overflow: hidden;
+}
+
+#spinBtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#spinBtn:hover {
+    background-color: #218838;
+}

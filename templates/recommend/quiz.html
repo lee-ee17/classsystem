@@ -1,0 +1,54 @@
+{# templates/recommend/quiz.html #}
+{% extends "base.html" %}
+{% block title %}課程偏好測驗 | 這堂課要去嗎？{% endblock %}
+
+{% block content %}
+<div class="content">
+  <div class="container py-5">
+    <h2 class="display-5 text-center mb-4">📝 課程偏好測驗</h2>
+
+    <form method="post" action="{% url 'recommend:result' %}">
+      {% csrf_token %}
+      
+      {# 循环每一道题，从视图里传来的 questions 列表 #}
+      {% for q in questions %}
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <p class="fw-bold mb-3">
+              {{ forloop.counter }}. {{ q.text }}
+            </p>
+
+            <div class="d-flex justify-content-between small text-muted mb-2">
+              <span>非常同意</span>
+              <span>非常不同意</span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              {# 生成 1–7 的单选按钮 #}
+              {% for i in "1234567" %}
+                <div class="form-check">
+                  <input class="form-check-input"
+                         type="radio"
+                         name="{{ q.key }}"
+                         id="{{ q.key }}_{{ i }}"
+                         value="{{ i }}"
+                         required>
+                  <label class="form-check-label" for="{{ q.key }}_{{ i }}">
+                    {{ i }}
+                  </label>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary btn-lg px-5">
+          送出並查看推薦
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
